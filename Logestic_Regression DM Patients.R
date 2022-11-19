@@ -18,4 +18,4 @@ addmargins(t) # this will sum up the gender totals to give an overall total and 
 
 #Getting percentages of the categories
 round(prop.table(t),digits=3) # get proportions rounded to 3dp
-round(100*prop.table(t),digits=1) # get %s rounded to 1dp
+round(100*prop.table(t),digits=1) # get %s rounded to 1dp.
