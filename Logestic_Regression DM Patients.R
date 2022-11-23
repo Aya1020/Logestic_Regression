@@ -1,6 +1,6 @@
 library(tidyverse)
 #Importing the data
-dt = read_csv("Data/diapetic patients.csv")
+dt = read_csv("Logestic_Regression/Data/diapetic patients.csv")
 view(dt)
 #To inspect the dimensions of my data 
 dim(dt) # So i have 403 rows, in this case patients, and 24 columns
@@ -11,7 +11,7 @@ gender = as.factor(dt$gender) # but gender isn’t.
 dm = as.factor(dt$dm)
 
 #To see how many males and females & getting the total, using the “table” command.
-t <- table(gender) # store the tabulation for further manipulation
+t = table(gender) # store the tabulation for further manipulation
 addmargins(t)  # this will sum up the gender totals to give an overall total and print the results
 
 
@@ -63,3 +63,32 @@ dm_by_bmi_category <- table(bmi_categorised, dm2, exclude = NULL)
 dm_by_bmi_category 
 
 round(100 * prop.table(dm_by_bmi_category, margin = 1), digits = 1) 
+
+##### Here is the R code to do the cross-tabulations and the resulting output 
+
+# creating "age" variable
+age = dt$age
+summary(age)
+hist(dt$age,
+     main = "Age Distribution",
+     col = "light blue")
+
+# creating a categorical variable "age_grouped" 
+
+age_categorised = ifelse(age < 45, "< 45", 
+                          ifelse(age >= 45 & age <= 64, "45-64", 
+                                 ifelse(age > 64 & age <= 74, "65-74", 
+                                        ifelse(age > 74, "> 74", NA)))) 
+# displaying new variable in a table 
+
+ table(age_categorised)
+ 
+ # cross tabulating with gender 
+ 
+gender_age_categorised = table(age_categorised,gender, exclude = NULL)
+gender_age_categorised
+# display the cross tabulation as proportion of whole sample, converting to percentage and rounding to 1 decimal place 
+
+round(100*prop.table(gender_age_categorised),digits=1)
+
+
